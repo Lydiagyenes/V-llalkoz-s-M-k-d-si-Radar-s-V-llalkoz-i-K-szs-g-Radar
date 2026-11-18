@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vállalkozói Radar – Működés és Vállalkozói Készség</title>
+<style>
+:root{
+  --bg:#faf7f2;--surface:#ffffff;--ink:#1f2430;--muted:#6b7280;--line:#e6dfd3;--grid:#d9d2c5;
+  --accent:#0f766e;--accent-ink:#ffffff;--c1:#0f8b8d;--c2:#c2410c;
+  --good:#15803d;--mid:#b7791f;--low:#c2410c;--chip:#f1ece2;--shadow:0 1px 3px rgba(31,36,48,.08);
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14161b;--surface:#1d2027;--ink:#eceef2;--muted:#9aa3b2;--line:#2c313b;--grid:#3a404c;
+    --accent:#2dd4bf;--accent-ink:#06201d;--c1:#2dd4bf;--c2:#fb923c;
+    --good:#4ade80;--mid:#fbbf24;--low:#fb923c;--chip:#262a33;--shadow:none;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14161b;--surface:#1d2027;--ink:#eceef2;--muted:#9aa3b2;--line:#2c313b;--grid:#3a404c;
+  --accent:#2dd4bf;--accent-ink:#06201d;--c1:#2dd4bf;--c2:#fb923c;
+  --good:#4ade80;--mid:#fbbf24;--low:#fb923c;--chip:#262a33;--shadow:none;color-scheme:dark;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 48px}
+header.hero{padding:28px 0 8px}
+header.hero h1{font-size:clamp(1.5rem,4.5vw,2.1rem);line-height:1.2;margin:0 0 8px}
+header.hero p{margin:0;color:var(--muted);max-width:62ch}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 0}
+.pillar{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);font-size:.92rem}
+.pillar b{display:block;margin-bottom:2px}
+.pillar.p1{border-top:3px solid var(--c1)}.pillar.p2{border-top:3px solid var(--c2)}
+.bar-sticky{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--bg);padding:10px 0 8px;margin-top:12px;border-bottom:1px solid var(--line)}
+.bar-sticky .row{display:flex;justify-content:space-between;font-size:.88rem;color:var(--muted);margin-bottom:6px}
+.track{height:6px;background:var(--chip);border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .25s}
+.sec{margin-top:28px}
+.sec-head .num{display:inline-block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.sec-head h2{margin:2px 0 6px;font-size:1.35rem}
+.sec-head p{margin:0 0 8px;color:var(--muted)}
+details.legend{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.9rem;margin-bottom:6px}
+details.legend summary{cursor:pointer;font-weight:600}
+details.legend ol{list-style:none;margin:8px 0 2px;padding:0}
+details.legend li{margin:4px 0}
+fieldset.area{border:1px solid var(--line);background:var(--surface);border-radius:14px;margin:14px 0;padding:6px 14px 12px;box-shadow:var(--shadow)}
+fieldset.area legend{font-weight:700;padding:0 8px;font-size:1.02rem}
+.q{padding:12px 0;border-bottom:1px dashed var(--line);border-radius:8px}
+.q:last-child{border-bottom:0}
+.q p{margin:0 0 8px}
+.q.missing{background:rgba(194,65,12,.10);outline:2px solid var(--low);outline-offset:2px}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:380px}
+.scale label{position:relative;display:block}
+.scale input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.scale span{display:flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--chip);font-weight:600;transition:background .12s,border-color .12s}
+.scale input:hover+span{border-color:var(--accent)}
+.scale input:checked+span{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.scale input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:26px 0 0}
+button.btn{font:inherit;font-weight:700;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);padding:12px 20px;border-radius:12px;cursor:pointer;min-height:46px}
+button.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button.btn:disabled{opacity:.6;cursor:default}
+button.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.hint{color:var(--muted);font-size:.9rem}
+#results{display:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0;box-shadow:var(--shadow)}
+.card h2,.card h3{margin:0 0 8px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.kpi{background:var(--chip);border-radius:12px;padding:10px 12px}
+.kpi small{display:block;color:var(--muted)}
+.kpi strong{font-size:1.5rem}
+.radars{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.radars .card{margin:0}
+svg.radar{width:100%;height:auto;display:block}
+svg.radar text{fill:var(--ink);font-family:inherit}
+.rows{margin-top:6px}
+.arow{display:grid;grid-template-columns:1fr 54px;gap:4px 10px;align-items:center;padding:6px 0;font-size:.92rem}
+.arow .bar{grid-column:1 / -1;height:6px;border-radius:99px;background:var(--chip);overflow:hidden}
+.arow .bar i{display:block;height:100%;border-radius:99px}
+.arow b{text-align:right}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:middle;background:var(--chip)}
+.good{color:var(--good)}.mid{color:var(--mid)}.low{color:var(--low)}
+.bg-good{background:var(--good)}.bg-mid{background:var(--mid)}.bg-low{background:var(--low)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.chip{background:var(--chip);border-radius:99px;padding:6px 12px;font-size:.92rem}
+.chip b{color:var(--good)}
+.focus{border-left:4px solid var(--low);padding:4px 0 4px 12px;margin:14px 0}
+.focus h4{margin:0 0 2px;font-size:1.02rem}
+.focus p{margin:4px 0}
+.focus ul{margin:4px 0 0;padding-left:20px;color:var(--muted);font-size:.92rem}
+textarea{width:100%;min-height:96px;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
+#ai-out{white-space:pre-wrap;margin-top:12px}
+.note{font-size:.82rem;color:var(--muted);margin-top:24px}
+@media (max-width:680px){
+  .radars,.pillars{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr 1fr 1fr}
+  .kpi strong{font-size:1.25rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>Vállalkozás Működési Radar és Vállalkozói Készség Radar</h1>
+    <p>Értékeld magad őszintén 1–5-ig 60 állítás mentén. A végén két pókhálót kapsz, az erősségeiddel, a fejlesztendő területeiddel és a három fókuszpontoddal. A cél nem a tökéletes ötös mindenhol, hanem hogy lásd, hol van a legnagyobb növekedési potenciálod a következő 90 napban.</p>
+    <div class="pillars">
+      <div class="pillar p1"><b>1. A rendszer</b>A vállalkozásod 6 kulcsterülete (pénzügy, marketing, stratégia stb.).</div>
+      <div class="pillar p2"><b>2. Te, a vezető</b>A 6 kulcskompetenciád (időmenedzsment, döntéshozatal, stresszkezelés stb.).</div>
+    </div>
+  </header>
+
+  <div id="formView">
+    <div class="bar-sticky">
+      <div class="row"><span id="progText">Kitöltve: 0 / 60</span><span id="progPct">0%</span></div>
+      <div class="track"><div class="fill" id="progFill"></div></div>
+    </div>
+    <div id="form-body"></div>
+    <div class="actions">
+      <button class="btn" id="btnResult" type="button">Eredmény megtekintése</button>
+      <button class="btn ghost" id="btnReset" type="button">Összes válasz törlése</button>
+      <span class="hint" id="formMsg" role="status"></span>
+    </div>
+  </div>
+
+  <div id="results" aria-live="polite">
+    <div class="card" id="overview"></div>
+    <div class="radars" id="radars"></div>
+    <div class="card" id="strengths"></div>
+    <div class="card" id="focusCard"></div>
+    <div class="card">
+      <h3>A te diagnózis-mondatod</h3>
+      <p class="hint" style="margin-top:0">Ez egy javaslat a kiindulóponthoz, nyugodtan írd át a saját szavaiddal.</p>
+      <textarea id="diag" aria-label="Diagnózis-mondat"></textarea>
+    </div>
+    <div class="card" id="ai-card" hidden>
+      <h3>Személyre szabott AI-összefoglaló</h3>
+      <p class="hint" style="margin-top:0">Claude megírja az összképet, az erősségeidet és a három fókuszterületedhez egy-egy első lépést a következő 90 napra.</p>
+      <button class="btn" id="btnAI" type="button">AI-összefoglaló készítése</button>
+      <div id="ai-out"></div>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="btnBack" type="button">Vissza a kérdőívhez</button>
+      <button class="btn ghost" id="btnReset2" type="button">Újrakezdés</button>
+    </div>
+  </div>
+
+  <p class="note">A válaszaid csak ebben a böngészőben tárolódnak. Ha az AI-összefoglaló gombot használod, az eredményeid elküldődnek Claude-nak, hogy megírja a szöveget.</p>
+</div>
+
+<script>
+const DATA = [
+  {
+    title: "Vállalkozás Működési Radar",
+    intro: "A céged 6 kulcsterületét vizsgálja. Értékeld magad aszerint, hogy jelenleg hol tartasz.",
+    color: "var(--c1)",
+    scale: [
+      "Fejlesztendő: egyáltalán nem foglalkozom vele, vagy komoly hiányosságok vannak.",
+      "Kezdő: van elképzelésem, de még csak most kezdek vele tudatosan foglalkozni.",
+      "Alapvető: alapszinten működik, de nincs benne igazi rendszer vagy mérhetőség.",
+      "Jól működő: tudatos, rendszeres folyamat, amely már látható eredményeket hoz.",
+      "Kiváló: optimalizált, delegált vagy automatizált, stratégiai szinten kezelt terület."
+    ],
+    areas: [
+      { name: "Pénzügyek és Árazás", hint: "Készíts egyszerű költség- és árkalkulációt, és vezess rövid távú cash flow előrejelzést.", qs: [
+        "Tudom pontosan, mennyi a termékem/szolgáltatásom valós költsége, és biztosít elegendő profitot a működésen túl?",
+        "Rendszeresen felülvizsgálom az árazásomat, nem „megérzésből” árazok.",
+        "Készítek rövid távú cash flow előrejelzést, hogy elkerüljem a váratlan nehézségeket.",
+        "Tisztában vagyok a vállalkozásom jogi és adózási formájával, és minden szükséges védelemmel rendelkezem.",
+        "Folyamatosan nyomon követem a megtérülést, és tudom, melyik termék/szolgáltatás a legnyereségesebb."
+      ]},
+      { name: "Értékesítés és Marketing", hint: "Térképezd fel a célcsoportod, és mérd, melyik csatorna hozza a bevételt.", qs: [
+        "Pontosan ismerem a célcsoportom problémáit és vásárlási szokásait.",
+        "Van kialakított, mérhető értékesítési folyamatom a leadtől a zárásig.",
+        "Tudom, mely marketingcsatornáim hozzák a legtöbb bevételt, és oda összpontosítom az erőforrásokat.",
+        "Tudatos ügyfélmegtartási stratégiám van, nem csak az új ügyfelekre fókuszálok.",
+        "A kommunikációm és vizuális megjelenésem konzisztens és hitelesen tükrözi az értékajánlatomat."
+      ]},
+      { name: "Termék és Értékajánlat", hint: "Fogalmazd meg élesen az értékajánlatod, és kérj rendszeresen ügyfélvisszajelzést.", qs: [
+        "Egyértelműen meg tudom fogalmazni, milyen problémát old meg a termékem, és miben más, mint a versenytársaké.",
+        "Rendszeresen kérek és felhasználok ügyfélvisszajelzést a fejlesztésekhez.",
+        "Stabil, magas minőséget nyújtok minden ügyfélnek, még nagyobb terhelés esetén is.",
+        "A piacra lépés előtt validáltam a termékemet/szolgáltatásomat valódi érdeklődőkkel.",
+        "Van világos termékstruktúrám (pl. alap – prémium – kiegészítő ajánlat)."
+      ]},
+      { name: "Működési Hatékonyság", hint: "Dokumentáld vagy automatizáld az ismétlődő folyamatokat, és delegáld, ami nem értékteremtő.", qs: [
+        "Dokumentáltam vagy automatizáltam az ismétlődő folyamatokat (pl. számlázás, ügyfélkezelés).",
+        "Tudatosan delegálom a nem értékteremtő feladatokat.",
+        "Stabil technikai háttérrel dolgozom, ami támogatja a hatékonyságot.",
+        "Rendszeresen mérem a teljesítményt és a hibaarányt.",
+        "Van tervem arra, hogyan működik a vállalkozás nélkülem is (pl. helyettesítés, automatizmus)."
+      ]},
+      { name: "Stratégia és Jövőkép", hint: "Tűzz ki mérhető éves és negyedéves célokat, és nézd át rendszeresen a fókuszodat.", qs: [
+        "Van világos jövőképem 3–5 évre, ami motivál és irányt ad.",
+        "Kialakítottam mérhető éves és negyedéves célokat, és ezeket nyomon is követem.",
+        "Követem a piaci trendeket, és alkalmazkodom a változásokhoz.",
+        "Rendszeresen felülvizsgálom a fókuszomat, hogy a legfontosabb célok felé haladjak.",
+        "Tudatosan osztom be az erőforrásokat a stratégiai prioritások mentén."
+      ]},
+      { name: "Partnerek és Támogatók", hint: "Építs megbízható szakértői hátteret (könyvelő, jogász), és keress mentort vagy támogató közösséget.", qs: [
+        "Van megbízható könyvelőm és jogi szakértőm, akikkel rendszeresen konzultálok.",
+        "Hatékonyan tudok delegálni feladatokat a csapatomnak és/vagy külső partnereknek, alvállalkozóknak.",
+        "Tudatosan építem a szakmai kapcsolataimat, amelyek új lehetőségeket hozhatnak.",
+        "Értékelem a partnereim teljesítményét, és szükség esetén váltok.",
+        "Van mentorom, coachom vagy támogató közösségem, akivel/akikkel megoszthatom a vállalkozói kihívásokat."
+      ]}
+    ]
+  },
+  {
+    title: "Vállalkozói Készség Radar",
+    intro: "A te 6 kulcskompetenciádat méri fel. Ez a teszt rólad szól: a vezetőről, a döntéshozóról, a megvalósítóról.",
+    color: "var(--c2)",
+    scale: [
+      "Fejlesztendő: ez a készség jelenleg hiányzik, vagy gyakran megnehezíti a működésedet.",
+      "Kezdő: tudod, hogy fontos, de még nagyon a kezdeti szinten vagy.",
+      "Alapvető: néha jól működik, de még hullámzó a teljesítményed.",
+      "Jól működő: tudatosan használod, és általában sikeresen alkalmazod.",
+      "Kiváló: ösztönösen és hatékonyan működik, ez már az egyik erősséged."
+    ],
+    areas: [
+      { name: "Mentális Állóképesség és Kitartás", hint: "Építs olyan rutinokat és határokat, amelyek hosszú távon is tartják a tempót.", qs: [
+        "Képes vagyok hosszú távon motiválni magam akkor is, ha a lelkesedés alábbhagyott.",
+        "Ha akadályba ütközöm, kitartóan keresek alternatív megoldásokat.",
+        "Kudarc után gyorsan felállok és újult erővel folytatom a munkát.",
+        "Rendszeresen tartom a vállalt munkatempót, nem billent ki a külső környezet.",
+        "Meg tudom húzni a határokat az ügyfelek felé a mentális egészségem védelmében."
+      ]},
+      { name: "Önismeret és Önbizalom", hint: "Írd össze az erősségeidet, és kérj tudatosan visszajelzést.", qs: [
+        "Tudom, mik az erősségeim, és tudatosan ezekre építek.",
+        "Magabiztosan képviselem a vállalkozásomat és a díjaimat.",
+        "Tudatosan dolgozom a gyengeségeimen, nem hagyom, hogy visszafogjanak.",
+        "El tudom fogadni a konstruktív kritikát, és beépítem a fejlődésembe.",
+        "A versenytársak sikere motivál, nem bizonytalanít el."
+      ]},
+      { name: "Időmenedzsment és Fókusz", hint: "Priorizálj hetente, és gyakorold a nemet mondást a céljaidtól eltérítő projektekre.", qs: [
+        "Rendszeresen foglalkozom a fontos, de nem sürgős feladatokkal.",
+        "Reálisan becsülöm meg a feladataimhoz szükséges időt.",
+        "Tudatosan kezelem az időrabló tényezőket (pl. social media, e-mailek).",
+        "Hetente priorizálom a feladataimat a legértékesebb célok mentén.",
+        "Képes vagyok nemet mondani olyan projektekre, amik eltérítenek a hosszú távú céltól."
+      ]},
+      { name: "Kommunikáció és Tárgyalási Képesség", hint: "Gyakorold az áraid magabiztos kiállítását és a kifogáskezelést.", qs: [
+        "Érthetően és hitelesen kommunikálom a vállalkozásom értékét.",
+        "Tárgyalások során törekszem win-win (nyerő-nyerő) megoldásokra.",
+        "Konfliktushelyzetben higgadtan és megoldásfókuszúan kommunikálok.",
+        "Magabiztosan kérem el a termékem/szolgáltatásom árát, indokolatlan árengedmény nélkül.",
+        "Határozottan, mégis empatikusan kezelem a vásárlói kifogásokat és alkukat."
+      ]},
+      { name: "Döntéshozatal és Problémamegoldás", hint: "Állíts fel egyszerű döntési keretet, és vonj be külső szakértőt, ha kell.", qs: [
+        "Gyorsan, de átgondoltan hozok döntéseket, ha helyzet adódik.",
+        "Vállalom a felelősséget a rossz döntésekért, és tanulok belőlük.",
+        "Ha valami megoldhatatlannak tűnik, új nézőpontból közelítek rá.",
+        "Váratlan változások esetén rugalmasan módosítom a terveimet.",
+        "Ha szükséges, külső szakértő véleményét is bevonom a döntésekbe."
+      ]},
+      { name: "Stressz- és Bizonytalanságkezelés", hint: "Tervezz tudatosan pihenést, és kérj időben segítséget, ha túlterhelt vagy.", qs: [
+        "Hatékonyan kezelem a stresszt és a fáradtságot, anélkül hogy a munkám kárára menne.",
+        "Elfogadom a bizonytalanságot, nem bénít meg a jövőtől való félelem.",
+        "Időben kérek segítséget, ha túlterhelt vagyok.",
+        "Tudatosan tervezek szabadidőt és pihenést a hetembe.",
+        "A negatív hírek és külső tényezők nem vonják el a fókuszomat a befolyásolható feladatokról."
+      ]}
+    ]
+  }
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => n.toFixed(1).replace('.', ',');
+const TOTAL = DATA.reduce((t, s) => t + s.areas.reduce((u, a) => u + a.qs.length, 0), 0);
+const key = (s, a, q) => s + '.' + a + '.' + q;
+const band = v => v >= 4 ? 'good' : v >= 3 ? 'mid' : 'low';
+const bandLabel = v => v >= 4 ? 'Erősség' : v >= 3 ? 'Közepes' : 'Fejlesztendő';
+
+let answers = {};
+try { answers = JSON.parse(localStorage.getItem('radar-v1') || '{}') || {}; } catch (e) { answers = {}; }
+function save() { try { localStorage.setItem('radar-v1', JSON.stringify(answers)); } catch (e) {} }
+
+function renderForm() {
+  $('#form-body').innerHTML = DATA.map((sec, si) => `
+    <section class="sec" id="sec-${si}">
+      <div class="sec-head">
+        <span class="num">${si + 1}. rész</span>
+        <h2>${esc(sec.title)}</h2>
+        <p>${esc(sec.intro)}</p>
+        <details class="legend"><summary>Mit jelentenek a pontok?</summary>
+          <ol>${sec.scale.map((t, i) => `<li><b>${i + 1}</b> – ${esc(t)}</li>`).join('')}</ol>
+        </details>
+      </div>
+      ${sec.areas.map((ar, ai) => `
+        <fieldset class="area"><legend>${esc(ar.name)}</legend>
+          ${ar.qs.map((q, qi) => {
+            const k = key(si, ai, qi);
+            return `<div class="q" data-k="${k}"><p>${esc(q)}</p>
+              <div class="scale" role="radiogroup" aria-label="Pontszám 1-től 5-ig">
+                ${[1,2,3,4,5].map(v => `<label><input type="radio" name="q${k}" value="${v}" ${answers[k] === v ? 'checked' : ''}><span>${v}</span></label>`).join('')}
+              </div></div>`;
+          }).join('')}
+        </fieldset>`).join('')}
+    </section>`).join('');
+  updateProgress();
+}
+
+function answeredCount() { return Object.keys(answers).filter(k => answers[k] >= 1 && answers[k] <= 5).length; }
+function updateProgress() {
+  const n = answeredCount(), p = Math.round(n / TOTAL * 100);
+  $('#progText').textContent = 'Kitöltve: ' + n + ' / ' + TOTAL;
+  $('#progPct').textContent = p + '%';
+  $('#progFill').style.width = p + '%';
+}
+
+$('#form-body').addEventListener('change', e => {
+  const t = e.target;
+  if (t.type !== 'radio') return;
+  const q = t.closest('.q');
+  answers[q.dataset.k] = Number(t.value);
+  q.classList.remove('missing');
+  save(); updateProgress();
+  $('#formMsg').textContent = '';
+});
+
+function resetAll() {
+  if (!confirm('Biztosan törlöd az összes választ?')) return;
+  answers = {}; save(); renderForm();
+  $('#results').style.display = 'none'; $('#formView').style.display = '';
+  $('#formMsg').textContent = '';
+  window.scrollTo({ top: 0 });
+}
+$('#btnReset').addEventListener('click', resetAll);
+$('#btnReset2').addEventListener('click', resetAll);
+
+function compute() {
+  return DATA.map((sec, si) => ({
+    sec, si,
+    areas: sec.areas.map((ar, ai) => {
+      const sc = ar.qs.map((_, qi) => answers[key(si, ai, qi)]);
+      return { name: ar.name, hint: ar.hint, qs: ar.qs, sc, avg: sc.reduce((a, b) => a + b, 0) / sc.length, si, ai };
+    })
+  }));
+}
+const mean = arr => arr.reduce((a, b) => a + b.avg, 0) / arr.length;
+
+function wrap(text, max) {
+  const out = []; let line = '';
+  text.split(' ').forEach(w => {
+    if ((line + ' ' + w).trim().length > max && line) { out.push(line); line = w; }
+    else line = (line + ' ' + w).trim();
+  });
+  if (line) out.push(line);
+  return out;
+}
+
+function radar(areas, color, title) {
+  const W = 520, H = 430, cx = 260, cy = 215, R = 120, n = areas.length;
+  const ang = i => -Math.PI / 2 + i * 2 * Math.PI / n;
+  const pt = (i, v) => [cx + Math.cos(ang(i)) * R * v / 5, cy + Math.sin(ang(i)) * R * v / 5];
+  let s = `<svg class="radar" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)} pókháló diagram">`;
+  for (let r = 1; r <= 5; r++) {
+    const pts = areas.map((_, i) => pt(i, r).map(x => x.toFixed(1)).join(',')).join(' ');
+    s += `<polygon points="${pts}" fill="none" stroke="var(--grid)" stroke-width="${r === 5 ? 1.4 : 1}"/>`;
+  }
+  areas.forEach((_, i) => { const [x, y] = pt(i, 5); s += `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--grid)"/>`; });
+  for (let r = 1; r <= 5; r++) s += `<text x="${cx + 4}" y="${(cy - R * r / 5 + 3).toFixed(1)}" font-size="9" style="fill:var(--muted)">${r}</text>`;
+  const poly = areas.map((a, i) => pt(i, a.avg).map(x => x.toFixed(1)).join(',')).join(' ');
+  s += `<polygon points="${poly}" fill="${color}" fill-opacity=".25" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  areas.forEach((a, i) => { const [x, y] = pt(i, a.avg); s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="${color}"/>`; });
+  areas.forEach((a, i) => {
+    const c = Math.cos(ang(i)), sn = Math.sin(ang(i));
+    const lx = cx + c * (R + 18), ly = cy + sn * (R + 18);
+    const anchor = c > 0.3 ? 'start' : c < -0.3 ? 'end' : 'middle';
+    const lines = wrap(a.name, 16);
+    const shift = sn < -0.5 ? -(lines.length - 1) * 14 - 2 : sn > 0.5 ? 12 : -(lines.length - 1) * 7 + 4;
+    s += `<text x="${lx.toFixed(1)}" y="${(ly + shift).toFixed(1)}" text-anchor="${anchor}" font-size="13" font-weight="600">` +
+      lines.map((l, k) => `<tspan x="${lx.toFixed(1)}" dy="${k === 0 ? 0 : 14}">${esc(l)}</tspan>`).join('') +
+      `<tspan x="${lx.toFixed(1)}" dy="14" font-weight="700" style="fill:${color}">${fmt(a.avg)}</tspan></text>`;
+  });
+  return s + '</svg>';
+}
+
+function showResults() {
+  const res = compute();
+  const all = res.flatMap(r => r.areas);
+  const asc = all.map((a, i) => ({ a, i })).sort((x, y) => x.a.avg - y.a.avg || x.i - y.i).map(o => o.a);
+  const focus = asc.slice(0, 3);
+  let strong = all.filter(a => a.avg >= 4).sort((x, y) => y.avg - x.avg);
+  const relative = strong.length === 0;
+  if (relative) strong = [...asc].reverse().slice(0, 2);
+  const b = mean(res[0].areas), p = mean(res[1].areas), d = b - p;
+  const balance = Math.abs(d) < 0.5
+    ? 'A két oldal nagyjából egyensúlyban van: a rendszereid és a vezetői készségeid hasonló szinten állnak, ezért a fejlődés mindkét oldalon egyszerre is mehet.'
+    : d > 0
+      ? 'A rendszereid erősebbek, mint a vezetői készségeid. Hiába jók a folyamatok, a stabil növekedéshez a te vezetői oldaladat is érdemes erősíteni.'
+      : 'A vezetői készségeid erősebbek, mint a rendszereid. Hiába vagy jó vezető, stabil növekedéshez a működést tartó rendszerekre is szükség van.';
+
+  $('#overview').innerHTML = `<h2>Az összképed</h2>
+    <div class="kpis">
+      <div class="kpi"><small>Vállalkozás Működés</small><strong>${fmt(b)}</strong></div>
+      <div class="kpi"><small>Vállalkozói Készség</small><strong>${fmt(p)}</strong></div>
+      <div class="kpi"><small>Mind a 12 terület</small><strong>${fmt(mean(all))}</strong></div>
+    </div><p style="margin:0">${esc(balance)}</p>`;
+
+  $('#radars').innerHTML = res.map(r => `
+    <div class="card"><h3>${esc(r.sec.title)}</h3>
+      ${radar(r.areas, r.sec.color, r.sec.title)}
+      <div class="rows">${r.areas.map(a => `
+        <div class="arow"><span>${esc(a.name)}<span class="tag ${band(a.avg)}">${bandLabel(a.avg)}</span></span><b>${fmt(a.avg)}</b>
+          <div class="bar"><i class="bg-${band(a.avg)}" style="width:${a.avg / 5 * 100}%"></i></div></div>`).join('')}
+      </div></div>`).join('');
+
+  $('#strengths').innerHTML = `<h2>${relative ? 'Relatív erősségeid' : 'Az erősségeid'}</h2>
+    <p class="hint" style="margin:0">${relative
+      ? 'Egyik terület sem érte el a 4-es átlagot, ezért ezek a legmagasabbak, amelyekre már most építhetsz.'
+      : 'A 4-es vagy magasabb átlagú területek a stabil alapod. Használd pajzsként!'}</p>
+    <div class="chips">${strong.map(a => `<span class="chip"><b>${fmt(a.avg)}</b> · ${esc(a.name)}</span>`).join('')}</div>`;
+
+  $('#focusCard').innerHTML = `<h2>A három fókuszterületed</h2>
+    <p class="hint" style="margin:0 0 6px">A legalacsonyabb átlagú területek. Ne akarj egyszerre mindent fejleszteni: a fejlődés a fókuszon múlik.</p>
+    ${focus.map((a, i) => {
+      const low = a.qs.map((q, qi) => ({ q, v: a.sc[qi] })).sort((x, y) => x.v - y.v);
+      let show = low.filter(x => x.v <= 3).slice(0, 2);
+      if (!show.length) show = low.slice(0, 1);
+      return `<div class="focus"><h4>${i + 1}. ${esc(a.name)} · <span class="${band(a.avg)}">${fmt(a.avg)}</span></h4>
+        <p>${esc(a.hint)}</p>
+        <ul>${show.map(x => `<li>Itt kaptad a legkevesebbet (${x.v}): „${esc(x.q)}”</li>`).join('')}</ul></div>`;
+    }).join('')}`;
+
+  $('#diag').value = 'A vállalkozásom jelenlegi állapota: erősségem a „' + strong[0].name + '”; fejlődni szeretnék ezeken a területeken: „' +
+    focus[0].name + '” és „' + focus[1].name + '”, hogy stabil alapot építsek a növekedéshez.';
+
+  $('#ai-out').textContent = '';
+  $('#formView').style.display = 'none';
+  $('#results').style.display = 'block';
+  window.scrollTo({ top: 0 });
+}
+
+$('#btnResult').addEventListener('click', () => {
+  if (answeredCount() < TOTAL) {
+    let first = null;
+    DATA.forEach((sec, si) => sec.areas.forEach((ar, ai) => ar.qs.forEach((_, qi) => {
+      const k = key(si, ai, qi);
+      if (!answers[k]) {
+        const el = document.querySelector('.q[data-k="' + k + '"]');
+        el.classList.add('missing');
+        if (!first) first = el;
+      }
+    })));
+    $('#formMsg').textContent = 'Még ' + (TOTAL - answeredCount()) + ' állítás kimaradt. Pirossal jelöltem őket.';
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  showResults();
+});
+$('#btnBack').addEventListener('click', () => {
+  $('#results').style.display = 'none'; $('#formView').style.display = '';
+  window.scrollTo({ top: 0 });
+});
+
+/* AI-összefoglaló (csak ha a viewer engedélyezi) */
+let sampleFn = null;
+(async () => {
+  try { if (window.claude && claude.use) sampleFn = await claude.use('sample'); } catch (e) { sampleFn = null; }
+  if (sampleFn) $('#ai-card').hidden = false;
+})();
+
+$('#btnAI').addEventListener('click', async () => {
+  if (!sampleFn) return;
+  const res = compute(), all = res.flatMap(r => r.areas);
+  const asc = all.map((a, i) => ({ a, i })).sort((x, y) => x.a.avg - y.a.avg || x.i - y.i).map(o => o.a);
+  const focus = asc.slice(0, 3);
+  const lines = res.map(r => r.sec.title + ':\n' + r.areas.map(a => '- ' + a.name + ': ' + fmt(a.avg) + ' (' + a.sc.join(', ') + ')').join('\n')).join('\n\n');
+  const details = focus.map(a => a.name + ' (átlag ' + fmt(a.avg) + '):\n' + a.qs.map((q, qi) => '  ' + a.sc[qi] + '/5 – ' + q).join('\n')).join('\n\n');
+  const prompt = 'Egy tapasztalt, barátságos, őszinte vállalkozásfejlesztési mentor vagy. Egy vállalkozó kitöltötte a Vállalkozás Működési Radart (a rendszer 6 területe) és a Vállalkozói Készség Radart (a vezető 6 kompetenciája), 1–5-ös skálán (1 fejlesztendő, 5 kiváló).\n\n' +
+    'Írj magyarul, tegeződve, melegen de őszintén, rövid összefoglalót. Formázás: ne használj markdownt (se csillagot, se #-t), csak sima bekezdéseket és „– ” kezdetű sorokat. Szerkezet:\n' +
+    'Összkép: 3–4 mondat arról, hogyan áll a rendszer és a vezető oldal egymáshoz képest.\n' +
+    'Erősségeid: 2–3 pont a legmagasabb területekből.\n' +
+    'Fókuszterületeid: a három legalacsonyabb területhez egy-egy konkrét, megvalósítható első lépés a következő 90 napra, a lent látható legalacsonyabb pontszámú állításokra építve.\n' +
+    'Legfeljebb kb. 250 szó. Csak az alábbi adatokból dolgozz, ne találj ki semmit a vállalkozásról.\n\n' +
+    'EREDMÉNYEK (terület: átlag, zárójelben az öt állítás pontszáma):\n' + lines + '\n\nA HÁROM LEGALACSONYABB TERÜLET RÉSZLETEI:\n' + details;
+  const out = $('#ai-out'), btn = $('#btnAI');
+  btn.disabled = true; out.textContent = 'Az összefoglaló készül…';
+  try {
+    const r = await sampleFn(prompt, { onText: ({ text }) => { out.textContent = text; }, cache: false });
+    out.textContent = r.text;
+  } catch (e) {
+    out.textContent = e && e.code === 'not_granted' ? 'Az AI-összefoglalóhoz engedélyre van szükség. A fenti, szabály alapú értékelés enélkül is érvényes.'
+      : e && e.code === 'rate_limited' ? 'Most túl sok kérés ment el, próbáld meg egy perc múlva.'
+      : 'Az AI-összefoglalót most nem sikerült elkészíteni. A fenti értékelés enélkül is használható.';
+  } finally { btn.disabled = false; btn.textContent = 'Új összefoglaló készítése'; }
+});
+
+renderForm();
+</script>
+</body>
+</html>
