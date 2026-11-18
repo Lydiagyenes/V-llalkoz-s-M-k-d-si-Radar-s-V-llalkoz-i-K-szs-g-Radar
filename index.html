@@ -2,49 +2,43 @@
 <html lang="hu">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="light">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Vállalkozói Radar – Működés és Vállalkozói Készség</title>
+<title>Vállalkozás Működési Radar és Vállalkozói Készség Radar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#faf7f2;--surface:#ffffff;--ink:#1f2430;--muted:#6b7280;--line:#e6dfd3;--grid:#d9d2c5;
-  --accent:#0f766e;--accent-ink:#ffffff;--c1:#0f8b8d;--c2:#c2410c;
-  --good:#15803d;--mid:#b7791f;--low:#c2410c;--chip:#f1ece2;--shadow:0 1px 3px rgba(31,36,48,.08);
+  --bg:#ebe8ff;--surface:#ffffff;--hero:#dcd6ff;--ink:#1b1248;--muted:#57537f;--line:#cdc7f0;--grid:#c9c3ea;
+  --accent:#3b2a95;--accent-ink:#ffffff;--c1:#5a49b8;--c2:#a63cc8;
+  --good:#1f8a5b;--mid:#a86a0c;--low:#c2412d;--chip:#f1efff;--shadow:0 2px 8px rgba(43,26,115,.10);
+  --serif:"DM Serif Display",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   color-scheme:light;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#14161b;--surface:#1d2027;--ink:#eceef2;--muted:#9aa3b2;--line:#2c313b;--grid:#3a404c;
-    --accent:#2dd4bf;--accent-ink:#06201d;--c1:#2dd4bf;--c2:#fb923c;
-    --good:#4ade80;--mid:#fbbf24;--low:#fb923c;--chip:#262a33;--shadow:none;color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#14161b;--surface:#1d2027;--ink:#eceef2;--muted:#9aa3b2;--line:#2c313b;--grid:#3a404c;
-  --accent:#2dd4bf;--accent-ink:#06201d;--c1:#2dd4bf;--c2:#fb923c;
-  --good:#4ade80;--mid:#fbbf24;--low:#fb923c;--chip:#262a33;--shadow:none;color-scheme:dark;
-}
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-.wrap{max-width:860px;margin:0 auto;padding:0 16px 48px}
-header.hero{padding:28px 0 8px}
-header.hero h1{font-size:clamp(1.5rem,4.5vw,2.1rem);line-height:1.2;margin:0 0 8px}
+.wrap{max-width:860px;margin:0 auto;padding:16px 16px 48px}
+header.hero{background:var(--hero);border-radius:20px;padding:28px 24px 24px}
+header.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,5vw,2.5rem);line-height:1.15;margin:0 0 12px;color:var(--ink)}
 header.hero p{margin:0;color:var(--muted);max-width:62ch}
 .pillars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 0}
-.pillar{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);font-size:.92rem}
+.pillar{background:var(--surface);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);font-size:.92rem}
 .pillar b{display:block;margin-bottom:2px}
-.pillar.p1{border-top:3px solid var(--c1)}.pillar.p2{border-top:3px solid var(--c2)}
+.pillar.p1{border-top:4px solid var(--c1)}.pillar.p2{border-top:4px solid var(--c2)}
 .bar-sticky{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--bg);padding:10px 0 8px;margin-top:12px;border-bottom:1px solid var(--line)}
 .bar-sticky .row{display:flex;justify-content:space-between;font-size:.88rem;color:var(--muted);margin-bottom:6px}
 .track{height:6px;background:var(--chip);border-radius:99px;overflow:hidden}
 .fill{height:100%;width:0;background:var(--accent);transition:width .25s}
 .sec{margin-top:28px}
 .sec-head .num{display:inline-block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.sec-head h2{margin:2px 0 6px;font-size:1.35rem}
+.sec-head h2{font-family:var(--serif);font-weight:400;margin:2px 0 6px;font-size:1.6rem}
 .sec-head p{margin:0 0 8px;color:var(--muted)}
 details.legend{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.9rem;margin-bottom:6px}
 details.legend summary{cursor:pointer;font-weight:600}
@@ -55,7 +49,7 @@ fieldset.area legend{font-weight:700;padding:0 8px;font-size:1.02rem}
 .q{padding:12px 0;border-bottom:1px dashed var(--line);border-radius:8px}
 .q:last-child{border-bottom:0}
 .q p{margin:0 0 8px}
-.q.missing{background:rgba(194,65,12,.10);outline:2px solid var(--low);outline-offset:2px}
+.q.missing{background:rgba(194,65,45,.10);outline:2px solid var(--low);outline-offset:2px}
 .scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:380px}
 .scale label{position:relative;display:block}
 .scale input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
@@ -66,12 +60,12 @@ fieldset.area legend{font-weight:700;padding:0 8px;font-size:1.02rem}
 .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:26px 0 0}
 button.btn{font:inherit;font-weight:700;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);padding:12px 20px;border-radius:12px;cursor:pointer;min-height:46px}
 button.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-button.btn:disabled{opacity:.6;cursor:default}
 button.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .hint{color:var(--muted);font-size:.9rem}
 #results{display:none}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0;box-shadow:var(--shadow)}
-.card h2,.card h3{margin:0 0 8px}
+.card h2,.card h3{font-family:var(--serif);font-weight:400;margin:0 0 8px;font-size:1.45rem}
+.card h3{font-size:1.25rem}
 .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
 .kpi{background:var(--chip);border-radius:12px;padding:10px 12px}
 .kpi small{display:block;color:var(--muted)}
@@ -79,7 +73,7 @@ button.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .radars{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .radars .card{margin:0}
 svg.radar{width:100%;height:auto;display:block}
-svg.radar text{fill:var(--ink);font-family:inherit}
+svg.radar text{fill:var(--ink);font-family:var(--sans)}
 .rows{margin-top:6px}
 .arow{display:grid;grid-template-columns:1fr 54px;gap:4px 10px;align-items:center;padding:6px 0;font-size:.92rem}
 .arow .bar{grid-column:1 / -1;height:6px;border-radius:99px;background:var(--chip);overflow:hidden}
@@ -88,19 +82,17 @@ svg.radar text{fill:var(--ink);font-family:inherit}
 .tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:middle;background:var(--chip)}
 .good{color:var(--good)}.mid{color:var(--mid)}.low{color:var(--low)}
 .bg-good{background:var(--good)}.bg-mid{background:var(--mid)}.bg-low{background:var(--low)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
-.chip{background:var(--chip);border-radius:99px;padding:6px 12px;font-size:.92rem}
-.chip b{color:var(--good)}
-.focus{border-left:4px solid var(--low);padding:4px 0 4px 12px;margin:14px 0}
-.focus h4{margin:0 0 2px;font-size:1.02rem}
+.item{border-left:4px solid var(--good);padding:2px 0 2px 12px;margin:14px 0}
+.item h4,.focus h4{margin:0 0 2px;font-size:1.02rem}
+.item p{margin:4px 0}
+.focus{border-left:4px solid var(--low);padding:4px 0 4px 12px;margin:16px 0}
 .focus p{margin:4px 0}
-.focus ul{margin:4px 0 0;padding-left:20px;color:var(--muted);font-size:.92rem}
-textarea{width:100%;min-height:96px;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
-#ai-out{white-space:pre-wrap;margin-top:12px}
+.focus .step{background:var(--chip);border-radius:10px;padding:8px 12px;margin-top:8px}
+.focus ul{margin:6px 0 0;padding-left:20px;color:var(--muted);font-size:.92rem}
+textarea{width:100%;min-height:96px;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical}
 .note{font-size:.82rem;color:var(--muted);margin-top:24px}
 @media (max-width:680px){
   .radars,.pillars{grid-template-columns:1fr}
-  .kpis{grid-template-columns:1fr 1fr 1fr}
   .kpi strong{font-size:1.25rem}
 }
 </style>
@@ -139,22 +131,18 @@ textarea{width:100%;min-height:96px;font:inherit;padding:10px 12px;border-radius
       <p class="hint" style="margin-top:0">Ez egy javaslat a kiindulóponthoz, nyugodtan írd át a saját szavaiddal.</p>
       <textarea id="diag" aria-label="Diagnózis-mondat"></textarea>
     </div>
-    <div class="card" id="ai-card" hidden>
-      <h3>Személyre szabott AI-összefoglaló</h3>
-      <p class="hint" style="margin-top:0">Claude megírja az összképet, az erősségeidet és a három fókuszterületedhez egy-egy első lépést a következő 90 napra.</p>
-      <button class="btn" id="btnAI" type="button">AI-összefoglaló készítése</button>
-      <div id="ai-out"></div>
-    </div>
     <div class="actions">
+      <button class="btn" id="btnReroll" type="button">Másik megfogalmazás</button>
       <button class="btn ghost" id="btnBack" type="button">Vissza a kérdőívhez</button>
       <button class="btn ghost" id="btnReset2" type="button">Újrakezdés</button>
     </div>
   </div>
 
-  <p class="note">A válaszaid csak ebben a böngészőben tárolódnak. Ha az AI-összefoglaló gombot használod, az eredményeid elküldődnek Claude-nak, hogy megírja a szöveget.</p>
+  <p class="note">A válaszaid csak ebben a böngészőben tárolódnak, sehová nem kerülnek elküldésre.</p>
 </div>
 
 <script>
+/*DATA-START*/
 const DATA = [
   {
     title: "Vállalkozás Működési Radar",
@@ -168,42 +156,42 @@ const DATA = [
       "Kiváló: optimalizált, delegált vagy automatizált, stratégiai szinten kezelt terület."
     ],
     areas: [
-      { name: "Pénzügyek és Árazás", hint: "Készíts egyszerű költség- és árkalkulációt, és vezess rövid távú cash flow előrejelzést.", qs: [
+      { name: "Pénzügyek és Árazás", qs: [
         "Tudom pontosan, mennyi a termékem/szolgáltatásom valós költsége, és biztosít elegendő profitot a működésen túl?",
         "Rendszeresen felülvizsgálom az árazásomat, nem „megérzésből” árazok.",
         "Készítek rövid távú cash flow előrejelzést, hogy elkerüljem a váratlan nehézségeket.",
         "Tisztában vagyok a vállalkozásom jogi és adózási formájával, és minden szükséges védelemmel rendelkezem.",
         "Folyamatosan nyomon követem a megtérülést, és tudom, melyik termék/szolgáltatás a legnyereségesebb."
       ]},
-      { name: "Értékesítés és Marketing", hint: "Térképezd fel a célcsoportod, és mérd, melyik csatorna hozza a bevételt.", qs: [
+      { name: "Értékesítés és Marketing", qs: [
         "Pontosan ismerem a célcsoportom problémáit és vásárlási szokásait.",
         "Van kialakított, mérhető értékesítési folyamatom a leadtől a zárásig.",
         "Tudom, mely marketingcsatornáim hozzák a legtöbb bevételt, és oda összpontosítom az erőforrásokat.",
         "Tudatos ügyfélmegtartási stratégiám van, nem csak az új ügyfelekre fókuszálok.",
         "A kommunikációm és vizuális megjelenésem konzisztens és hitelesen tükrözi az értékajánlatomat."
       ]},
-      { name: "Termék és Értékajánlat", hint: "Fogalmazd meg élesen az értékajánlatod, és kérj rendszeresen ügyfélvisszajelzést.", qs: [
+      { name: "Termék és Értékajánlat", qs: [
         "Egyértelműen meg tudom fogalmazni, milyen problémát old meg a termékem, és miben más, mint a versenytársaké.",
         "Rendszeresen kérek és felhasználok ügyfélvisszajelzést a fejlesztésekhez.",
         "Stabil, magas minőséget nyújtok minden ügyfélnek, még nagyobb terhelés esetén is.",
         "A piacra lépés előtt validáltam a termékemet/szolgáltatásomat valódi érdeklődőkkel.",
         "Van világos termékstruktúrám (pl. alap – prémium – kiegészítő ajánlat)."
       ]},
-      { name: "Működési Hatékonyság", hint: "Dokumentáld vagy automatizáld az ismétlődő folyamatokat, és delegáld, ami nem értékteremtő.", qs: [
+      { name: "Működési Hatékonyság", qs: [
         "Dokumentáltam vagy automatizáltam az ismétlődő folyamatokat (pl. számlázás, ügyfélkezelés).",
         "Tudatosan delegálom a nem értékteremtő feladatokat.",
         "Stabil technikai háttérrel dolgozom, ami támogatja a hatékonyságot.",
         "Rendszeresen mérem a teljesítményt és a hibaarányt.",
         "Van tervem arra, hogyan működik a vállalkozás nélkülem is (pl. helyettesítés, automatizmus)."
       ]},
-      { name: "Stratégia és Jövőkép", hint: "Tűzz ki mérhető éves és negyedéves célokat, és nézd át rendszeresen a fókuszodat.", qs: [
+      { name: "Stratégia és Jövőkép", qs: [
         "Van világos jövőképem 3–5 évre, ami motivál és irányt ad.",
         "Kialakítottam mérhető éves és negyedéves célokat, és ezeket nyomon is követem.",
         "Követem a piaci trendeket, és alkalmazkodom a változásokhoz.",
         "Rendszeresen felülvizsgálom a fókuszomat, hogy a legfontosabb célok felé haladjak.",
         "Tudatosan osztom be az erőforrásokat a stratégiai prioritások mentén."
       ]},
-      { name: "Partnerek és Támogatók", hint: "Építs megbízható szakértői hátteret (könyvelő, jogász), és keress mentort vagy támogató közösséget.", qs: [
+      { name: "Partnerek és Támogatók", qs: [
         "Van megbízható könyvelőm és jogi szakértőm, akikkel rendszeresen konzultálok.",
         "Hatékonyan tudok delegálni feladatokat a csapatomnak és/vagy külső partnereknek, alvállalkozóknak.",
         "Tudatosan építem a szakmai kapcsolataimat, amelyek új lehetőségeket hozhatnak.",
@@ -224,42 +212,42 @@ const DATA = [
       "Kiváló: ösztönösen és hatékonyan működik, ez már az egyik erősséged."
     ],
     areas: [
-      { name: "Mentális Állóképesség és Kitartás", hint: "Építs olyan rutinokat és határokat, amelyek hosszú távon is tartják a tempót.", qs: [
+      { name: "Mentális Állóképesség és Kitartás", qs: [
         "Képes vagyok hosszú távon motiválni magam akkor is, ha a lelkesedés alábbhagyott.",
         "Ha akadályba ütközöm, kitartóan keresek alternatív megoldásokat.",
         "Kudarc után gyorsan felállok és újult erővel folytatom a munkát.",
         "Rendszeresen tartom a vállalt munkatempót, nem billent ki a külső környezet.",
         "Meg tudom húzni a határokat az ügyfelek felé a mentális egészségem védelmében."
       ]},
-      { name: "Önismeret és Önbizalom", hint: "Írd össze az erősségeidet, és kérj tudatosan visszajelzést.", qs: [
+      { name: "Önismeret és Önbizalom", qs: [
         "Tudom, mik az erősségeim, és tudatosan ezekre építek.",
         "Magabiztosan képviselem a vállalkozásomat és a díjaimat.",
         "Tudatosan dolgozom a gyengeségeimen, nem hagyom, hogy visszafogjanak.",
         "El tudom fogadni a konstruktív kritikát, és beépítem a fejlődésembe.",
         "A versenytársak sikere motivál, nem bizonytalanít el."
       ]},
-      { name: "Időmenedzsment és Fókusz", hint: "Priorizálj hetente, és gyakorold a nemet mondást a céljaidtól eltérítő projektekre.", qs: [
+      { name: "Időmenedzsment és Fókusz", qs: [
         "Rendszeresen foglalkozom a fontos, de nem sürgős feladatokkal.",
         "Reálisan becsülöm meg a feladataimhoz szükséges időt.",
         "Tudatosan kezelem az időrabló tényezőket (pl. social media, e-mailek).",
         "Hetente priorizálom a feladataimat a legértékesebb célok mentén.",
         "Képes vagyok nemet mondani olyan projektekre, amik eltérítenek a hosszú távú céltól."
       ]},
-      { name: "Kommunikáció és Tárgyalási Képesség", hint: "Gyakorold az áraid magabiztos kiállítását és a kifogáskezelést.", qs: [
+      { name: "Kommunikáció és Tárgyalási Képesség", qs: [
         "Érthetően és hitelesen kommunikálom a vállalkozásom értékét.",
         "Tárgyalások során törekszem win-win (nyerő-nyerő) megoldásokra.",
         "Konfliktushelyzetben higgadtan és megoldásfókuszúan kommunikálok.",
         "Magabiztosan kérem el a termékem/szolgáltatásom árát, indokolatlan árengedmény nélkül.",
         "Határozottan, mégis empatikusan kezelem a vásárlói kifogásokat és alkukat."
       ]},
-      { name: "Döntéshozatal és Problémamegoldás", hint: "Állíts fel egyszerű döntési keretet, és vonj be külső szakértőt, ha kell.", qs: [
+      { name: "Döntéshozatal és Problémamegoldás", qs: [
         "Gyorsan, de átgondoltan hozok döntéseket, ha helyzet adódik.",
         "Vállalom a felelősséget a rossz döntésekért, és tanulok belőlük.",
         "Ha valami megoldhatatlannak tűnik, új nézőpontból közelítek rá.",
         "Váratlan változások esetén rugalmasan módosítom a terveimet.",
         "Ha szükséges, külső szakértő véleményét is bevonom a döntésekbe."
       ]},
-      { name: "Stressz- és Bizonytalanságkezelés", hint: "Tervezz tudatosan pihenést, és kérj időben segítséget, ha túlterhelt vagy.", qs: [
+      { name: "Stressz- és Bizonytalanságkezelés", qs: [
         "Hatékonyan kezelem a stresszt és a fáradtságot, anélkül hogy a munkám kárára menne.",
         "Elfogadom a bizonytalanságot, nem bénít meg a jövőtől való félelem.",
         "Időben kérek segítséget, ha túlterhelt vagyok.",
@@ -270,13 +258,305 @@ const DATA = [
   }
 ];
 
+/* Szövegvariációk. Szerkesztés: egy tömbön belül bármennyi változat lehet, a kód véletlenszerűen választ közülük.
+   high = 4,0 vagy több | mid = 3,0–3,99 | low = 3,0 alatt | step = első lépés a következő 90 napra */
+const TEXTS = {
+  "Pénzügyek és Árazás": {
+    high: [
+      "A pénzügyi alapjaid stabilak: ismered a költségeidet, tudatosan árazol, és látod, mi hoz valódi hasznot. Ez nyugalmat ad, és szabad kezet a növekedési döntésekhez.",
+      "Erős pénzügyi tudatosság jellemez: az árazásod nem megérzésen múlik, és van rálátásod a megtérülésre. Erre bátran építhetsz új ajánlatnál vagy bővülésnél."
+    ],
+    mid: [
+      "Az alapok megvannak, de a pénzügyeid még nem teljesen rendszerszerűek. Egy-két rendszeres mérőszám vagy előrejelzés sokat javítana a biztonságodon.",
+      "Nagyjából átlátod a számokat, de van még hézag az árazás vagy a megtérülés nyomon követésében. Itt kevés munkával is jelentős előrelépés érhető el."
+    ],
+    low: [
+      "A pénzügyi terület most a legnagyobb kockázatod: nem biztos, hogy pontosan tudod a valós költségeidet és azt, mennyi marad profitként. Ezzel kezdd, mert ez minden más döntés alapja.",
+      "Itt van a „lyuk a hordón”: az árazás és a pénzügyi tervezés egyelőre inkább megérzésen alapul. Ha ezt megfogod, a vállalkozásod azonnal stabilabbá válik.",
+      "A pénzügyek még kiszámíthatatlanná tehetik a működést. A jó hír, hogy pár egyszerű táblázattal és rendszeres átnézéssel gyorsan rendet lehet tenni."
+    ],
+    step: [
+      "Az első 30 napban számold ki egy táblázatban a fő szolgáltatásod vagy terméked valós költségét és árrését, majd állíts be havi 30 perces pénzügyi átnézést.",
+      "Készíts egy 3 hónapos cash flow előrejelzést (bevétel, fix és változó költség), és nézd át az árazásodat a legnyereségesebb ajánlatod alapján."
+    ]
+  },
+  "Értékesítés és Marketing": {
+    high: [
+      "Tudod, kinek szólsz és mi hozza a bevételt, a marketinged és az értékesítésed mérhetően működik. Érdemes ezt a sikerképletet megismételni és skálázni.",
+      "Az értékesítési folyamatod és a kommunikációd tudatos, az eredmények látszanak. A következő szint a delegálás vagy az automatizálás lehet."
+    ],
+    mid: [
+      "Van működő alap, de a folyamat még nem teljesen mérhető, vagy nem tudod pontosan, melyik csatorna mennyit hoz. Egy egyszerű mérés után jobban célozhatsz.",
+      "Az ügyfélszerzés megy, de kevésbé tudatosan, mint szeretnéd. Ha tisztázod a célcsoportot és a folyamat lépéseit, kiszámíthatóbb lesz a bevétel."
+    ],
+    low: [
+      "Az ügyfélszerzés most inkább esetleges: nincs mérhető folyamat, és nem biztos, hogy tudod, honnan jön a bevétel. Ez a terület sokat hozhat, ha rendszert viszel bele.",
+      "Itt a legnagyobb a növekedési potenciál: a célcsoport pontosabb megismerése és egy egyszerű értékesítési folyamat gyorsan látható javulást hozhat.",
+      "A marketing és az értékesítés egyelőre nem épül rendszerre, ezért a bevétel hullámzó lehet. Kezdd egyetlen csatornával és egyetlen mérhető lépéssorral."
+    ],
+    step: [
+      "Írd le az ideális ügyfeled legfőbb 3 problémáját, és válaszd ki azt az egy csatornát, ahol a leginkább elérhető. Mérd heti szinten, hány érdeklődő jön onnan.",
+      "Rajzold fel az értékesítési folyamatodat a leadtől a zárásig, és mérd meg, hol esnek ki a legtöbben. Ezt a lépést javítsd először."
+    ]
+  },
+  "Termék és Értékajánlat": {
+    high: [
+      "Világosan meg tudod mondani, mit oldasz meg és miben vagy más, a minőséged is stabil. Ez erős alap az árazáshoz és a pozícionáláshoz.",
+      "Az ajánlatod átgondolt, validált és visszajelzésekre épül. A következő lépés lehet a termékstruktúra finomítása vagy egy új ajánlati szint bevezetése."
+    ],
+    mid: [
+      "Az ajánlatod működik, de az értékajánlat még nem teljesen éles, vagy kevés rendszeres visszajelzésre épül. Egy-két ügyfélbeszélgetés sokat megmutat.",
+      "Alapvetően jó terméked van, de a különbség a versenytársakhoz képest vagy a struktúra még csiszolásra szorul. Ezt kisebb lépésekkel meg lehet oldani."
+    ],
+    low: [
+      "Az értékajánlat még nem elég egyértelmű, ezért nehezebb megmagyarázni, miért érdemes téged választani. Itt érdemes megállni és élesíteni.",
+      "Kevés visszajelzésre és validálásra épül az ajánlatod, így könnyen előfordulhat, hogy nem pontosan azt kapják az ügyfelek, amire szükségük van.",
+      "A termékstruktúra és az értékajánlat még formálódik. Ha egyszerűen megfogalmazod a problémát és a megoldásodat, ez a terület gyorsan erősödhet."
+    ],
+    step: [
+      "Fogalmazd meg egy mondatban: kinek, milyen problémát oldasz meg, és miben vagy más. Teszteld le 3 meglévő vagy leendő ügyféllel.",
+      "Kérj visszajelzést 5 ügyféltől egy rövid kérdéssorral, és építs be egy javítást a következő hónapban. Utána rendezd alap–prémium–kiegészítő szintekbe az ajánlatot."
+    ]
+  },
+  "Működési Hatékonyság": {
+    high: [
+      "A folyamataid dokumentáltak vagy automatizáltak, és a vállalkozás nem csak rajtad múlik. Ez az, ami igazán skálázhatóvá tesz.",
+      "A működésed rendezett, delegálsz és mérsz. Érdemes szemmel tartani, hogy a növekedéssel ez a rendszer is együtt fejlődjön."
+    ],
+    mid: [
+      "Vannak működő rutinok, de sok még fejben vagy kézzel megy. Néhány folyamat dokumentálása vagy automatizálása sok időt szabadíthat fel.",
+      "Az alapok megvannak, de a delegálás és a mérés még hiányos. Ha pár ismétlődő feladatot kivezetsz a kezedből, érezhetően könnyebb lesz."
+    ],
+    low: [
+      "A vállalkozás most erősen rajtad múlik: az ismétlődő feladatok kézzel, rendszer nélkül futnak. Ez hosszú távon torlódáshoz és kimerüléshez vezethet.",
+      "Itt rejlik az egyik legnagyobb időnyereség: a dokumentálatlan, nem automatizált folyamatok sok energiát visznek el.",
+      "A működés még nem épül rendszerre, ezért kevés a mérhetőség és a biztonság. Egy-két kulcsfolyamat leírásával már jelentős a változás."
+    ],
+    step: [
+      "Listázd az ismétlődő feladataidat, válassz ki 2–3 időigényeset (pl. számlázás, ügyfélkezelés), és dokumentáld vagy automatizáld az elsőt.",
+      "Jelöld meg, mi nem értékteremtő a heti teendőidben, és delegáld vagy automatizáld az egyiket. Írd le egy oldalon, hogyan működne a vállalkozás egy hétig nélküled."
+    ]
+  },
+  "Stratégia és Jövőkép": {
+    high: [
+      "Tudod, merre tartasz: van jövőképed, mérhető céljaid, és rendszeresen felülvizsgálod a fókuszt. Ez irányt és motivációt ad a napi döntésekhez.",
+      "A stratégiai gondolkodásod erős: a céljaid és az erőforrásaid összhangban vannak. Erre építve nyugodtan vállalhatsz ambiciózusabb célt."
+    ],
+    mid: [
+      "Van elképzelésed a jövőről, de a célok mérése és a rendszeres felülvizsgálat még nem következetes. Egy negyedéves rutin segíthet.",
+      "Az irány nagyjából megvan, de a konkrét, mérhető célok és az erőforrások tudatos elosztása még hiányos."
+    ],
+    low: [
+      "A jövőkép és a mérhető célok egyelőre hiányoznak vagy elmosódnak, így könnyű a napi teendők mentén sodródni. Ez a terület adhat irányt mindennek.",
+      "Itt van a „lyuk a hordón”: stratégia nélkül nehéz eldönteni, mire mondj igent, és mire nemet. Néhány egyszerű cél is nagy különbséget tehet.",
+      "A stratégiai gondolkodás még nem része a rutinodnak. Ha kijelölsz egy 3 éves irányt és egy negyedéves célt, máris rendezettebb lesz a döntéshozatal."
+    ],
+    step: [
+      "Írd le, hol szeretnél lenni 3 év múlva, majd tűzz ki 1–3 mérhető negyedéves célt. Ülj le havonta 30 percre értékelni a haladást.",
+      "Válaszd ki a következő 90 nap egyetlen legfontosabb célját, és ahhoz rendeld az idődet és a pénzedet. Minden héten nézd át, haladsz-e felé."
+    ]
+  },
+  "Partnerek és Támogatók": {
+    high: [
+      "Megbízható szakértői hátteret építettél, és tudatosan kezeled a kapcsolataidat. Ez biztonságot és lehetőségeket is ad.",
+      "Jól használod a partnereidet és a támogató közösségedet, tudsz delegálni és szükség esetén váltani. Ez a háttér sokat segít a növekedésben."
+    ],
+    mid: [
+      "Van néhány megbízható partnered, de a kapcsolatépítés vagy a teljesítményértékelés még nem tudatos. Egy-két célzott lépés sokat javít.",
+      "A háttered részben megvan, de érdemes bővíteni a szakértői és mentori kört, hogy ne egyedül kelljen döntened."
+    ],
+    low: [
+      "Most kevés külső támaszra számíthatsz: nincs megbízható szakértői háttér vagy mentor. Ez magányossá és kockázatossá teheti a döntéseket.",
+      "A partneri hálózat jelenleg a rendszered gyenge pontja: kevés a delegálás és a tudatos kapcsolatépítés. Ezen gyorsan lehet javítani.",
+      "Egyedül sokat cipelsz. Egy megbízható könyvelő, jogász vagy mentor, illetve egy támogató közösség jelentősen csökkenti a terhet."
+    ],
+    step: [
+      "Egyeztess rendszeres időpontot a könyvelőddel (ha nincs, keress egyet), és csatlakozz egy vállalkozói közösséghez, vagy keress egy mentort.",
+      "Készíts listát a partnereidről, értékeld a teljesítményüket, és vegyél fel 2 új szakmai kapcsolatot a következő hónapban."
+    ]
+  },
+  "Mentális Állóképesség és Kitartás": {
+    high: [
+      "Kitartó vagy: akkor is tartod a tempót, ha a lelkesedés alábbhagy, és kudarc után gyorsan felállsz. Ez a vezetői oldalad egyik legnagyobb pajzsa.",
+      "Jól bírod a hosszú távot és a nyomást, és meg tudod húzni a határaidat is. Érdemes ezt a stabilitást tudatosan megőrizni."
+    ],
+    mid: [
+      "Az állóképességed többnyire jó, de hullámzik. Egy-két rutin segíthet, hogy a nehezebb időszakokban is egyenletes maradj.",
+      "Általában kitartó vagy, de a kudarcok vagy a külső hatások néha kibillentenek. Ha tisztázod a határaidat, stabilabb lehetsz."
+    ],
+    low: [
+      "Most nehezebben tartod a tempót és a motivációt. Ezt nem gyengeségként érdemes kezelni, hanem jelzésként, hogy kell egy kis rendszer és támogatás.",
+      "A motiváció és a határok kezelése itt a leginkább fejlesztendő. Apró, ismétlődő szokások sokat segíthetnek.",
+      "A hosszú távú kitartáshoz még nincs meg a megfelelő keret. Ha rövid távú mérföldköveket és világos ügyfélhatárokat tűzöl ki, könnyebb lesz."
+    ],
+    step: [
+      "Bontsd a nagy célt heti mérföldkövekre, és jutalmazd a haladást. Fogalmazz meg 2–3 ügyfélhatárt (elérhetőség, válaszidő), és tartsd is be őket.",
+      "Építs be hetente egy olyan rutint, ami feltölt, és jegyezd fel, mi segített felállni legutóbb egy kudarc után."
+    ]
+  },
+  "Önismeret és Önbizalom": {
+    high: [
+      "Ismered az erősségeidet, magabiztosan képviseled az áraidat, és tudsz tanulni a kritikából. Ez hiteles vezetőt mutat.",
+      "Az önismereted és az önbizalmad erős alap: tudatosan építesz az erősségeidre, és a versenytársak sem zökkentenek ki."
+    ],
+    mid: [
+      "Alapvetően magabiztos vagy, de néha elbizonytalanít egy kritika vagy a versenytársak sikere. Az erősségeid tudatosítása segít.",
+      "Jól ismered magad, a gyengeségeiden azonban még nem dolgozol tudatosan. Egy rövid önreflexiós rutin sokat tud adni."
+    ],
+    low: [
+      "Az önbizalom most visszafoghat: nehezebb lehet kiállni az áraid és az értéked mellett. Ez tanulható és erősíthető.",
+      "Kevésbé vagy tisztában az erősségeiddel, és a kritika vagy a versenytársak sikere könnyen megingat. Itt a tudatosság az első lépés.",
+      "Az önismereti oldal még fejlődhet. Ha összegyűjtöd a sikereidet és a visszajelzéseket, hamar látszani fog, mire támaszkodhatsz."
+    ],
+    step: [
+      "Írj le 10 sikert és 5 ügyfélvisszajelzést, majd emeld ki, miben vagy a legjobb. Kérj meg egy bizalmas ismerőst, hogy mondja el, mi az erősséged.",
+      "Gyakorold hangosan az áraid kimondását, és kérj egy konstruktív visszajelzést valakitől a következő két hétben."
+    ]
+  },
+  "Időmenedzsment és Fókusz": {
+    high: [
+      "Tudatosan priorizálsz, reálisan tervezel, és nemet is tudsz mondani. Ez az, ami a vezetőt a feladatok fölé emeli.",
+      "Az idődet és a fókuszodat jól kezeled: a fontos, de nem sürgős dolgokkal is foglalkozol. Ezt érdemes megtartani a növekedés mellett."
+    ],
+    mid: [
+      "Az időbeosztásod többnyire rendben van, de időnként elnyelik az időrablók vagy a sürgős feladatok. Egy heti priorizálás segít.",
+      "Jól tervezel, de a nemet mondás vagy az időbecslés még hullámzó. Néhány szabály egyszerűsítheti a hetedet."
+    ],
+    low: [
+      "Az idő és a fókusz most a gyenge pontod: könnyen elsodornak a sürgős vagy kevésbé fontos feladatok. Ez minden más területre rányomja a bélyegét.",
+      "A priorizálás és a nemet mondás hiánya sok energiát visz el. Már egy heti tervezés is érezhető változást hozhat.",
+      "Az időrablók és a reaktív működés sokat elvisznek a napodból. Egyszerű szabályokkal és blokkolt fókuszidővel gyorsan javítható."
+    ],
+    step: [
+      "Minden hétfőn válaszd ki a hét 3 legfontosabb feladatát, és blokkolj nekik fix időt. Jelöld meg a két legnagyobb időrablót, és korlátozd őket.",
+      "Egy hétig jegyezd fel, mire megy el az időd, majd mondj nemet egy olyan projektre, ami eltérít a céloktól."
+    ]
+  },
+  "Kommunikáció és Tárgyalási Képesség": {
+    high: [
+      "Hitelesen kommunikálod az értékedet, magabiztosan kéred el az árat, és a konfliktusokat is megoldásfókuszúan kezeled. Ez közvetlenül a bevételedben is megmutatkozik.",
+      "Erős tárgyalási és kommunikációs készséged van: win-win megoldásokat keresel, és az ellenvetéseket is jól kezeled."
+    ],
+    mid: [
+      "A kommunikációd jó, de az ár vagy a kifogások kapcsán néha bizonytalan vagy. Néhány begyakorolt mondat sokat segít.",
+      "Alapvetően jól tárgyalsz, de a konfliktus vagy az alku még kibillenthet. Gyakorlással ez gyorsan erősödik."
+    ],
+    low: [
+      "Az értéked és az áraid kommunikálása nehezebben megy, ami árengedményekhez és elveszett bevételhez vezethet. Ez tanulható készség.",
+      "A tárgyalási helyzetekben és a kifogáskezelésben még bizonytalan vagy. Ha begyakorolsz néhány kulcsmondatot, magabiztosabb leszel.",
+      "A kommunikáció és az alku itt a fejlesztendő terület. Egy egyszerű keretrendszer segít higgadtan és határozottan tárgyalni."
+    ],
+    step: [
+      "Írd le a 3 leggyakoribb ügyfélkifogást és a válaszodat rájuk, majd gyakorold hangosan. Az árat indoklás és mentegetőzés nélkül mondd ki.",
+      "Készíts egy rövid értékajánlati szöveget és egy árbemutató sablont, és a következő ajánlatadásnál használd őket."
+    ]
+  },
+  "Döntéshozatal és Problémamegoldás": {
+    high: [
+      "Gyorsan és átgondoltan döntesz, vállalod a felelősséget, és tanulsz a hibákból. Ez nagy előny bizonytalan helyzetekben.",
+      "Rugalmasan alkalmazkodsz a változásokhoz, és szükség esetén szakértőt is bevonsz. Ez a megközelítés megbízható alap."
+    ],
+    mid: [
+      "A döntéseid többnyire jók, de időnként húzod őket, vagy nem vonsz be külső nézőpontot. Egy egyszerű keret segít.",
+      "Jól oldasz meg problémákat, de a váratlan változások néha kibillentenek. Érdemes rögzíteni, hogyan döntesz."
+    ],
+    low: [
+      "A döntéshozatal most lassabb vagy bizonytalanabb lehet, ami elhúzhatja a haladást. Egy egyszerű döntési keret sokat segít.",
+      "Nehezebben közelíted meg új szemszögből a problémákat, és ritkán kérsz külső véleményt. Ez a terület gyorsan fejleszthető.",
+      "A döntésekből való tanulás még nem rutin. Ha leírod a döntéseidet és az eredményüket, sokat tanulhatsz belőlük."
+    ],
+    step: [
+      "Vezess döntési naplót: írd le a döntést, az indokot és az elvárt eredményt, majd 30 nap múlva értékeld. Nagyobb döntés előtt kérj egy külső véleményt.",
+      "Határozz meg egy szabályt (pl. 48 óra gondolkodás, utána döntés), és alkalmazd a következő három nagyobb döntésednél."
+    ]
+  },
+  "Stressz- és Bizonytalanságkezelés": {
+    high: [
+      "Jól kezeled a stresszt és a bizonytalanságot, időben kérsz segítséget, és tudatosan pihensz. Ez fenntartható működést ad.",
+      "A nyomás és a külső hírek kevéssé zökkentenek ki, és a pihenést is betervezed. Ezt érdemes védeni a sűrűbb időszakokban."
+    ],
+    mid: [
+      "A stresszkezelésed többnyire működik, de túlterheltség idején ingadozik. Néhány tudatos rutin stabilabbá tehet.",
+      "Alapvetően jól bírod a bizonytalanságot, de a pihenés vagy a segítségkérés néha háttérbe szorul."
+    ],
+    low: [
+      "A stressz és a bizonytalanság most sokat elvehet az energiádból, és a munkádra is hatással lehet. Ez gyakori, és tudatos lépésekkel javítható.",
+      "A pihenés és a segítségkérés elmarad, ami hosszú távon kimerítő lehet. Érdemes ezt komolyan venni és védeni.",
+      "A külső hírek és a bizonytalanság könnyen elvonják a fókuszodat. Ha a befolyásolható feladatokra tereled a figyelmedet, könnyebb lesz."
+    ],
+    step: [
+      "Tegyél be a naptáradba hetente legalább egy fix pihenőidőt, és nevezz meg egy embert, akitől túlterheltség esetén segítséget kérsz.",
+      "Gyűjtsd össze, mi van a befolyásodon belül és kívül egy aktuális gond esetén, és csak az előbbire fordíts időt. Ha tartósan kimerült vagy, beszélj szakemberrel."
+    ]
+  }
+};
+
+const OVERALL = {
+  high: [
+    "Összességében erős a kép: a rendszered és a vezetői készségeid is stabil alapot adnak. A feladat most a finomhangolás és a következő szint megtervezése.",
+    "Nagyon jó eredmény: a legtöbb területen tudatosan és rendszeresen működsz. A kihívás inkább az, hogy a növekedés közben is megtartsd ezt a rendet."
+  ],
+  mid: [
+    "Az alapok megvannak, és több területen már jól állsz, de van néhány pont, ahol a rendszer vagy a vezetői oldal még hullámzó. Ezekre fókuszálva gyorsan előrelépsz.",
+    "A kép vegyes, és ez rendben van: vannak stabil pontjaid és olyan területek, ahol egy kis rendszer nagy előrelépést hoz. A kulcs a fókusz."
+  ],
+  low: [
+    "Most sok területen van még fejlődési lehetőség, ez nem ítélet, hanem útjelző. Ne akarj mindent egyszerre: három fókuszterület elég a következő 90 napra.",
+    "A vállalkozásod és a készségeid még a fejlődés elején járnak, így nagy a növekedési potenciál. Válassz ki három területet, és ott építs rendszert."
+  ]
+};
+
+const BALANCE = {
+  even: [
+    "A két oldal nagyjából egyensúlyban van: a rendszereid és a vezetői készségeid hasonló szinten állnak, így mindkét oldalon haladhatsz egyszerre.",
+    "A rendszer és a vezetői oldal kiegyensúlyozott, ami stabil alap. Most a leggyengébb pontokra érdemes fókuszálni, bármelyik oldalon vannak."
+  ],
+  biz: [
+    "A rendszereid erősebbek, mint a vezetői készségeid. Hiába jók a folyamatok, a stabil növekedéshez a vezetői oldalt is érdemes erősíteni.",
+    "A működésed rendezettebb, mint a személyes készségeid. Ha a vezetői oldalt is felhozod, a rendszered jobban ki tudja használni a benne rejlő lehetőséget."
+  ],
+  pers: [
+    "A vezetői készségeid erősebbek, mint a rendszereid. Hiába vagy jó vezető, a stabil növekedéshez a működést tartó rendszerekre is szükség van.",
+    "Te magad erősebb vagy, mint a vállalkozásod rendszere. Ha rendszerbe önted, amit jól csinálsz, kevésbé leszel túlterhelve."
+  ]
+};
+
+const STRONG_INTRO = {
+  normal: [
+    "A 4-es vagy magasabb átlagú területek a stabil alapod. Használd pajzsként!",
+    "Ezekre a területekre bátran támaszkodhatsz, amikor új szintre lépsz."
+  ],
+  relative: [
+    "Egyik terület sem érte el a 4-es átlagot, ezért ezek a legmagasabbak, amelyekre már most építhetsz.",
+    "Még nincs 4-es átlagú terület, de ezek a legerősebbek: itt van a legstabilabb talajod."
+  ]
+};
+
+const FOCUS_INTRO = [
+  "A három legalacsonyabb átlagú terület. Ne akarj egyszerre mindent fejleszteni: a fejlődés a fókuszon múlik.",
+  "Itt van a legnagyobb áttörési lehetőség. Egyszerre ezzel a hárommal foglalkozz, a többi addig várhat."
+];
+
+/* {S} = legerősebb terület, {F1}, {F2}, {F3} = fókuszterületek */
+const DIAG = [
+  "A vállalkozásom jelenlegi állapota: erősségem a „{S}”; fejlődni szeretnék ezeken a területeken: „{F1}” és „{F2}”, hogy stabil alapot építsek a növekedéshez.",
+  "Jelenleg az erősségem: „{S}”. A következő 90 napban ezekre fókuszálok: „{F1}”, „{F2}”, „{F3}”.",
+  "A vállalkozásom most ott tart, hogy erős alapom a „{S}”, de a növekedéshez rendszert építek ezeken a területeken: „{F1}” és „{F2}”."
+];
+/*DATA-END*/
+
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt = n => n.toFixed(1).replace('.', ',');
 const TOTAL = DATA.reduce((t, s) => t + s.areas.reduce((u, a) => u + a.qs.length, 0), 0);
 const key = (s, a, q) => s + '.' + a + '.' + q;
 const band = v => v >= 4 ? 'good' : v >= 3 ? 'mid' : 'low';
+const tk = v => v >= 4 ? 'high' : v >= 3 ? 'mid' : 'low';
 const bandLabel = v => v >= 4 ? 'Erősség' : v >= 3 ? 'Közepes' : 'Fejlesztendő';
+
+let seed = Math.floor(Math.random() * 1000);
+let diagEdited = false;
+const pick = (arr, salt) => arr[(seed + salt) % arr.length];
 
 let answers = {};
 try { answers = JSON.parse(localStorage.getItem('radar-v1') || '{}') || {}; } catch (e) { answers = {}; }
@@ -340,7 +620,7 @@ function compute() {
     sec, si,
     areas: sec.areas.map((ar, ai) => {
       const sc = ar.qs.map((_, qi) => answers[key(si, ai, qi)]);
-      return { name: ar.name, hint: ar.hint, qs: ar.qs, sc, avg: sc.reduce((a, b) => a + b, 0) / sc.length, si, ai };
+      return { name: ar.name, qs: ar.qs, sc, avg: sc.reduce((a, b) => a + b, 0) / sc.length, si, ai };
     })
   }));
 }
@@ -368,7 +648,7 @@ function radar(areas, color, title) {
   areas.forEach((_, i) => { const [x, y] = pt(i, 5); s += `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="var(--grid)"/>`; });
   for (let r = 1; r <= 5; r++) s += `<text x="${cx + 4}" y="${(cy - R * r / 5 + 3).toFixed(1)}" font-size="9" style="fill:var(--muted)">${r}</text>`;
   const poly = areas.map((a, i) => pt(i, a.avg).map(x => x.toFixed(1)).join(',')).join(' ');
-  s += `<polygon points="${poly}" fill="${color}" fill-opacity=".25" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  s += `<polygon points="${poly}" fill="${color}" fill-opacity=".38" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
   areas.forEach((a, i) => { const [x, y] = pt(i, a.avg); s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="${color}"/>`; });
   areas.forEach((a, i) => {
     const c = Math.cos(ang(i)), sn = Math.sin(ang(i));
@@ -383,27 +663,27 @@ function radar(areas, color, title) {
   return s + '</svg>';
 }
 
-function showResults() {
+function showResults(fresh) {
+  if (fresh) diagEdited = false;
   const res = compute();
   const all = res.flatMap(r => r.areas);
+  const salt = a => a.si * 6 + a.ai;
   const asc = all.map((a, i) => ({ a, i })).sort((x, y) => x.a.avg - y.a.avg || x.i - y.i).map(o => o.a);
   const focus = asc.slice(0, 3);
   let strong = all.filter(a => a.avg >= 4).sort((x, y) => y.avg - x.avg);
   const relative = strong.length === 0;
   if (relative) strong = [...asc].reverse().slice(0, 2);
-  const b = mean(res[0].areas), p = mean(res[1].areas), d = b - p;
-  const balance = Math.abs(d) < 0.5
-    ? 'A két oldal nagyjából egyensúlyban van: a rendszereid és a vezetői készségeid hasonló szinten állnak, ezért a fejlődés mindkét oldalon egyszerre is mehet.'
-    : d > 0
-      ? 'A rendszereid erősebbek, mint a vezetői készségeid. Hiába jók a folyamatok, a stabil növekedéshez a te vezetői oldaladat is érdemes erősíteni.'
-      : 'A vezetői készségeid erősebbek, mint a rendszereid. Hiába vagy jó vezető, stabil növekedéshez a működést tartó rendszerekre is szükség van.';
+  const b = mean(res[0].areas), p = mean(res[1].areas), d = b - p, o = mean(all);
+  const bal = Math.abs(d) < 0.5 ? 'even' : d > 0 ? 'biz' : 'pers';
 
   $('#overview').innerHTML = `<h2>Az összképed</h2>
     <div class="kpis">
       <div class="kpi"><small>Vállalkozás Működés</small><strong>${fmt(b)}</strong></div>
       <div class="kpi"><small>Vállalkozói Készség</small><strong>${fmt(p)}</strong></div>
-      <div class="kpi"><small>Mind a 12 terület</small><strong>${fmt(mean(all))}</strong></div>
-    </div><p style="margin:0">${esc(balance)}</p>`;
+      <div class="kpi"><small>Mind a 12 terület</small><strong>${fmt(o)}</strong></div>
+    </div>
+    <p style="margin:0 0 8px">${esc(pick(OVERALL[tk(o)], 1))}</p>
+    <p style="margin:0">${esc(pick(BALANCE[bal], 2))}</p>`;
 
   $('#radars').innerHTML = res.map(r => `
     <div class="card"><h3>${esc(r.sec.title)}</h3>
@@ -414,30 +694,35 @@ function showResults() {
       </div></div>`).join('');
 
   $('#strengths').innerHTML = `<h2>${relative ? 'Relatív erősségeid' : 'Az erősségeid'}</h2>
-    <p class="hint" style="margin:0">${relative
-      ? 'Egyik terület sem érte el a 4-es átlagot, ezért ezek a legmagasabbak, amelyekre már most építhetsz.'
-      : 'A 4-es vagy magasabb átlagú területek a stabil alapod. Használd pajzsként!'}</p>
-    <div class="chips">${strong.map(a => `<span class="chip"><b>${fmt(a.avg)}</b> · ${esc(a.name)}</span>`).join('')}</div>`;
+    <p class="hint" style="margin:0">${esc(pick(STRONG_INTRO[relative ? 'relative' : 'normal'], 3))}</p>
+    ${strong.map(a => `<div class="item"><h4>${esc(a.name)} · <span class="${band(a.avg)}">${fmt(a.avg)}</span></h4>
+      <p>${esc(pick(TEXTS[a.name][tk(a.avg)], salt(a)))}</p></div>`).join('')}`;
 
   $('#focusCard').innerHTML = `<h2>A három fókuszterületed</h2>
-    <p class="hint" style="margin:0 0 6px">A legalacsonyabb átlagú területek. Ne akarj egyszerre mindent fejleszteni: a fejlődés a fókuszon múlik.</p>
+    <p class="hint" style="margin:0 0 6px">${esc(pick(FOCUS_INTRO, 4))}</p>
     ${focus.map((a, i) => {
       const low = a.qs.map((q, qi) => ({ q, v: a.sc[qi] })).sort((x, y) => x.v - y.v);
       let show = low.filter(x => x.v <= 3).slice(0, 2);
       if (!show.length) show = low.slice(0, 1);
       return `<div class="focus"><h4>${i + 1}. ${esc(a.name)} · <span class="${band(a.avg)}">${fmt(a.avg)}</span></h4>
-        <p>${esc(a.hint)}</p>
+        <p>${esc(pick(TEXTS[a.name][tk(a.avg)], salt(a)))}</p>
+        <p class="step"><b>Első lépés a következő 90 napra:</b> ${esc(pick(TEXTS[a.name].step, salt(a) + 3))}</p>
         <ul>${show.map(x => `<li>Itt kaptad a legkevesebbet (${x.v}): „${esc(x.q)}”</li>`).join('')}</ul></div>`;
     }).join('')}`;
 
-  $('#diag').value = 'A vállalkozásom jelenlegi állapota: erősségem a „' + strong[0].name + '”; fejlődni szeretnék ezeken a területeken: „' +
-    focus[0].name + '” és „' + focus[1].name + '”, hogy stabil alapot építsek a növekedéshez.';
+  if (!diagEdited) {
+    $('#diag').value = pick(DIAG, 5)
+      .replace('{S}', strong[0].name).replace('{F1}', focus[0].name)
+      .replace('{F2}', focus[1].name).replace('{F3}', focus[2].name);
+  }
 
-  $('#ai-out').textContent = '';
   $('#formView').style.display = 'none';
   $('#results').style.display = 'block';
-  window.scrollTo({ top: 0 });
+  if (fresh) window.scrollTo({ top: 0 });
 }
+
+$('#diag').addEventListener('input', () => { diagEdited = true; });
+$('#btnReroll').addEventListener('click', () => { seed++; showResults(false); });
 
 $('#btnResult').addEventListener('click', () => {
   if (answeredCount() < TOTAL) {
@@ -454,44 +739,11 @@ $('#btnResult').addEventListener('click', () => {
     if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
-  showResults();
+  showResults(true);
 });
 $('#btnBack').addEventListener('click', () => {
   $('#results').style.display = 'none'; $('#formView').style.display = '';
   window.scrollTo({ top: 0 });
-});
-
-/* AI-összefoglaló (csak ha a viewer engedélyezi) */
-let sampleFn = null;
-(async () => {
-  try { if (window.claude && claude.use) sampleFn = await claude.use('sample'); } catch (e) { sampleFn = null; }
-  if (sampleFn) $('#ai-card').hidden = false;
-})();
-
-$('#btnAI').addEventListener('click', async () => {
-  if (!sampleFn) return;
-  const res = compute(), all = res.flatMap(r => r.areas);
-  const asc = all.map((a, i) => ({ a, i })).sort((x, y) => x.a.avg - y.a.avg || x.i - y.i).map(o => o.a);
-  const focus = asc.slice(0, 3);
-  const lines = res.map(r => r.sec.title + ':\n' + r.areas.map(a => '- ' + a.name + ': ' + fmt(a.avg) + ' (' + a.sc.join(', ') + ')').join('\n')).join('\n\n');
-  const details = focus.map(a => a.name + ' (átlag ' + fmt(a.avg) + '):\n' + a.qs.map((q, qi) => '  ' + a.sc[qi] + '/5 – ' + q).join('\n')).join('\n\n');
-  const prompt = 'Egy tapasztalt, barátságos, őszinte vállalkozásfejlesztési mentor vagy. Egy vállalkozó kitöltötte a Vállalkozás Működési Radart (a rendszer 6 területe) és a Vállalkozói Készség Radart (a vezető 6 kompetenciája), 1–5-ös skálán (1 fejlesztendő, 5 kiváló).\n\n' +
-    'Írj magyarul, tegeződve, melegen de őszintén, rövid összefoglalót. Formázás: ne használj markdownt (se csillagot, se #-t), csak sima bekezdéseket és „– ” kezdetű sorokat. Szerkezet:\n' +
-    'Összkép: 3–4 mondat arról, hogyan áll a rendszer és a vezető oldal egymáshoz képest.\n' +
-    'Erősségeid: 2–3 pont a legmagasabb területekből.\n' +
-    'Fókuszterületeid: a három legalacsonyabb területhez egy-egy konkrét, megvalósítható első lépés a következő 90 napra, a lent látható legalacsonyabb pontszámú állításokra építve.\n' +
-    'Legfeljebb kb. 250 szó. Csak az alábbi adatokból dolgozz, ne találj ki semmit a vállalkozásról.\n\n' +
-    'EREDMÉNYEK (terület: átlag, zárójelben az öt állítás pontszáma):\n' + lines + '\n\nA HÁROM LEGALACSONYABB TERÜLET RÉSZLETEI:\n' + details;
-  const out = $('#ai-out'), btn = $('#btnAI');
-  btn.disabled = true; out.textContent = 'Az összefoglaló készül…';
-  try {
-    const r = await sampleFn(prompt, { onText: ({ text }) => { out.textContent = text; }, cache: false });
-    out.textContent = r.text;
-  } catch (e) {
-    out.textContent = e && e.code === 'not_granted' ? 'Az AI-összefoglalóhoz engedélyre van szükség. A fenti, szabály alapú értékelés enélkül is érvényes.'
-      : e && e.code === 'rate_limited' ? 'Most túl sok kérés ment el, próbáld meg egy perc múlva.'
-      : 'Az AI-összefoglalót most nem sikerült elkészíteni. A fenti értékelés enélkül is használható.';
-  } finally { btn.disabled = false; btn.textContent = 'Új összefoglaló készítése'; }
 });
 
 renderForm();
